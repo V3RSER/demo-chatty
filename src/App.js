@@ -42,7 +42,7 @@ class App extends Component {
       <h2>Loading...</h2>
     ) : (
       <Router>
-        <Header state={this.state.authenticated} />
+        <Header authenticated={this.state.authenticated} />
         <Routes>
           <Route
             path="/chat"
@@ -50,8 +50,18 @@ class App extends Component {
               this.state.authenticated ? <Chat /> : <Navigate to="/login" />
             }
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/login"
+            element={
+              this.state.authenticated ? <Navigate to="/chat" /> : <Login />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              this.state.authenticated ? <Navigate to="/chat" /> : <Signup />
+            }
+          />
         </Routes>
       </Router>
     );

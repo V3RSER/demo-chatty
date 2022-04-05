@@ -2,9 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Button, Nav, Navbar } from "reactstrap";
+import { logOut } from "../helpers/auth";
 
-const Header = (state) => {
+const Header = (authenticated) => {
   let navigate = useNavigate();
+  
   return (
     <Navbar color="dark" dark expand light>
       <Nav className="me-auto" navbar>
@@ -15,8 +17,10 @@ const Header = (state) => {
           Chat
         </NavLink>
       </Nav>
-      {state.authenticated ? (
-        <Button className="mx-1">Log out</Button>
+      {authenticated.authenticated ? (
+        <Button onClick={() => logOut()} className="mx-1">
+          Log out
+        </Button>
       ) : (
         <>
           <Button onClick={() => navigate("/login")} className="mx-1">
