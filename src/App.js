@@ -42,6 +42,7 @@ class App extends Component {
       <h2>Loading...</h2>
     ) : (
       <Router>
+        <Header state={this.state.authenticated} />
         <Routes>
           <Route
             path="/chat"
