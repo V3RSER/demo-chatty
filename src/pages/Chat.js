@@ -1,6 +1,16 @@
 import React, { Component } from "react";
 import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  CardText,
+  CardTitle,
+  Input,
+} from "reactstrap";
 
 export default class Chat extends Component {
   constructor(props) {
@@ -55,24 +65,27 @@ export default class Chat extends Component {
 
   render() {
     return (
-      <div>
-        <div className="chats">
-          {this.state.chats.map((chat) => {
-            return <p key={chat.timestamp}>{chat.content}</p>;
-          })}
-        </div>
-        {/* {# message form #} */}
-        <form onSubmit={this.handleSubmit}>
-          <input
-            onChange={this.handleChange}
-            value={this.state.content}
-          ></input>
-          {this.state.error ? <p>{this.state.writeError}</p> : null}
-          <button type="submit">Send</button>
-        </form>
-        <div>
-          Login in as: <strong>{this.state.user.email}</strong>
-        </div>
+      <div className="pt-5 mx-auto">
+        <Card>
+          <CardHeader tag="h3">Messages</CardHeader>
+          <CardBody>
+            {this.state.chats.map((chat) => {
+              return <CardText key={chat.timestamp}>{chat.content}</CardText>;
+            })}
+          </CardBody>
+          <CardFooter className="text-muted">
+            <form onSubmit={this.handleSubmit}>
+              <Input
+                onChange={this.handleChange}
+                value={this.state.content}
+              ></Input>
+              {this.state.error ? <p>{this.state.writeError}</p> : null}
+              <Button className="my-2" color="dark" type="submit" block>
+                Send
+              </Button>
+            </form>
+          </CardFooter>
+        </Card>
       </div>
     );
   }

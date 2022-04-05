@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Alert, Button, Input } from "reactstrap";
 import { signin, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
 
 export default class Login extends Component {
@@ -50,40 +51,45 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className="pt-5 mx-auto">
         <form autoComplete="off" onSubmit={this.handleSubmit}>
-          <h1>
-            Login to
-            <Link to="/">Chatty</Link>
-          </h1>
+          <h1>Login to Chatty</h1>
           <p>Fill in the form below to login to your account.</p>
           <div>
-            <input
+            <Input
               placeholder="Email"
               name="email"
               type="email"
               onChange={this.handleChange}
               value={this.state.email}
+              className="my-2"
             />
           </div>
           <div>
-            <input
+            <Input
               placeholder="Password"
               name="password"
               onChange={this.handleChange}
               value={this.state.password}
               type="password"
+              className="my-2"
             />
           </div>
           <div>
-            {this.state.error ? <p>{this.state.error}</p> : null}
-            <button type="submit">Login</button>
-            <button onClick={this.googleSignIn} type="button">
-              Sign up with Google
-            </button>
-            <button type="button" onClick={this.githubSignIn}>
-              Sign up with GitHub
-            </button>
+            {this.state.error ? (
+              <Alert color="danger" dismissible>
+                {this.state.error}
+              </Alert>
+            ) : null}
+            <Button block className="my-2" type="submit">
+              Log in with Email
+            </Button>
+            <Button block className="my-2" color="white" style={{ border: "1px solid" }} onClick={this.googleSignIn} type="button">
+              Log in with Google
+            </Button>
+            <Button block className="my-2" color="dark" type="button" onClick={this.githubSignIn}>
+              Log in with GitHub
+            </Button>
           </div>
           <hr />
           <p>

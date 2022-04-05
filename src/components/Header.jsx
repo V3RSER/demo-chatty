@@ -8,7 +8,7 @@ const Header = (authenticated) => {
   let navigate = useNavigate();
   
   return (
-    <Navbar color="dark" dark expand light>
+    <Navbar className="mb-auto" color="dark" dark expand light>
       <Nav className="me-auto" navbar>
         <NavLink className="navbar-brand" to="/">
           Home

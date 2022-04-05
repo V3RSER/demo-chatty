@@ -11,6 +11,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import { auth } from "./services/firebase";
 import Header from "./components/Header";
+import { Spinner } from "reactstrap";
 
 class App extends Component {
   constructor() {
@@ -38,32 +39,40 @@ class App extends Component {
   }
 
   render() {
-    return this.state.loading === true ? (
-      <h2>Loading...</h2>
+    return this.state.loading? (
+      <Spinner
+        color="dark"
+        style={{ position: "absolute", top: "50%", left: "50%" }}
+      >
+        Loading...
+      </Spinner>
     ) : (
-      <Router>
-        <Header authenticated={this.state.authenticated} />
-        <Routes>
-          <Route
-            path="/chat"
-            element={
-              this.state.authenticated ? <Chat /> : <Navigate to="/login" />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              this.state.authenticated ? <Navigate to="/chat" /> : <Login />
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              this.state.authenticated ? <Navigate to="/chat" /> : <Signup />
-            }
-          />
-        </Routes>
-      </Router>
+      <div className="cover-container d-flex h-100 mx-auto flex-column">
+        <Router>
+          <Header authenticated={this.state.authenticated} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/chat"
+              element={
+                this.state.authenticated ? <Chat /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                this.state.authenticated ? <Navigate to="/chat" /> : <Login />
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                this.state.authenticated ? <Navigate to="/chat" /> : <Signup />
+              }
+            />
+          </Routes>
+        </Router>
+      </div>
     );
   }
 }
