@@ -1,12 +1,16 @@
 import React, { Component } from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import Chat from "./pages/Chat";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import PublicRoute from "./components/PublicRoute";
-import PrivateRoute from "./components/PrivateRoute";
 import { auth } from "./services/firebase";
+import Header from "./components/Header";
 
 class App extends Component {
   constructor() {
@@ -38,24 +42,16 @@ class App extends Component {
       <h2>Loading...</h2>
     ) : (
       <Router>
-        <Switch>
-          {/* <Route exact path="/" component={Home}></Route> */}
-          <PrivateRoute
+        <Routes>
+          <Route
             path="/chat"
-            authenticated={this.state.authenticated}
-            component={Chat}
-          ></PrivateRoute>
-          <PublicRoute
-            path="/signup"
-            authenticated={this.state.authenticated}
-            component={Signup}
-          ></PublicRoute>
-          <PublicRoute
-            path="/login"
-            authenticated={this.state.authenticated}
-            component={Login}
-          ></PublicRoute>
-        </Switch>
+            element={
+              this.state.authenticated ? <Chat /> : <Navigate to="/login" />
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
       </Router>
     );
   }
