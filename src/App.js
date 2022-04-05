@@ -39,7 +39,7 @@ class App extends Component {
     ) : (
       <Router>
         <Switch>
-          <Route exact path="/" component={Home}></Route>
+          {/* <Route exact path="/" component={Home}></Route> */}
           <PrivateRoute
             path="/chat"
             authenticated={this.state.authenticated}
